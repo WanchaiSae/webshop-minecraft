@@ -1,5 +1,11 @@
-const calculatorPlus = (number1: number, number2: number) => {
-  return number1 + number2;
-};
+import { config } from 'dotenv';
+config();
 
-console.log(calculatorPlus(5, 4));
+import configOptions from './utils/serverConfigs';
+
+import express from 'express';
+const app = express();
+
+const PORT = configOptions.PORT;
+
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
