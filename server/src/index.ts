@@ -4,6 +4,8 @@ config();
 import configOptions from './utils/serverConfigs';
 
 import express from 'express';
+import connection from './config/mysqlConfig';
+
 const app = express();
 
 const PORT = configOptions.PORT;
