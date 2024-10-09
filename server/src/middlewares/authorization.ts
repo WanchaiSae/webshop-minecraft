@@ -13,7 +13,6 @@ export const authenticateJWT = (
   next: NextFunction
 ) => {
   const token = req.header('Authorization')?.split(' ')[1];
-  console.log(token);
 
   if (!token) {
     res.sendStatus(403);

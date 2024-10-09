@@ -47,15 +47,13 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    const sql = 'SELECT * FROM users WHERE user_username = ?';
-    const [results] = (await connection.query(sql, [
-      username,
-    ])) as RowDataPacket[];
+    const sql = 'SELECT * FROM users WHERE user_email = ?';
+    const [results] = (await connection.query(sql, [email])) as RowDataPacket[];
 
     if (results.length === 0) {
-      res.status(401).json({ message: 'Invalid username or password' });
+      res.status(401).json({ message: 'Invalid email or password' });
       return;
     }
 
@@ -67,7 +65,7 @@ export const login = async (req: Request, res: Response) => {
     );
 
     if (!isPasswordCorrect) {
-      res.status(401).json({ message: 'Invalid username or password' });
+      res.status(401).json({ message: 'Invalid email or password' });
       return;
     }
 
