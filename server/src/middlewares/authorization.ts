@@ -13,12 +13,14 @@ export const authenticateJWT = (
   next: NextFunction
 ) => {
   const token = req.header('Authorization')?.split(' ')[1];
+  console.log(token);
 
   if (!token) {
     res.sendStatus(403);
+    return;
   }
 
-  jwt.verify(token!, 'your_jwt_secret', (err, user) => {
+  jwt.verify(token, '1234', (err, user) => {
     if (err) {
       return res.sendStatus(401);
     }
