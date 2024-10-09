@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import connection from '../config/mysqlConfig';
 import { RowDataPacket } from 'mysql2';
+import { config } from 'dotenv';
+config();
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -69,7 +71,7 @@ export const login = async (req: Request, res: Response) => {
       return;
     }
 
-    const token = jwt.sign({ user: user.user_id }, '1234', {
+    const token = jwt.sign({ user: user.user_id }, process.env.JWT_SECRET!, {
       expiresIn: '1h',
     });
     res.setHeader('Authorization', `Bearer ${token}`);

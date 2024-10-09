@@ -20,7 +20,7 @@ export const authenticateJWT = (
     return;
   }
 
-  jwt.verify(token, '1234', (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET!, (err, user) => {
     if (err) {
       return res.sendStatus(401);
     }
