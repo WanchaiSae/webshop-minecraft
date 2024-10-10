@@ -5,10 +5,17 @@ import { RowDataPacket } from 'mysql2';
 
 export const addItems = async (req: Request, res: Response) => {
   try {
-    const { command, detail } = req.body;
+    const { name, command, qty, price, description } = req.body;
 
-    const sql = 'INSERT INTO items (item_command, item_detail) VALUES (?, ?)';
-    const [result] = await connection.query(sql, [command, detail]);
+    const sql =
+      'INSERT INTO items (item_name, item_command, item_qty, item_price, item_description) VALUES (?, ?, ?, ?, ?)';
+    const [result] = await connection.query(sql, [
+      name,
+      command,
+      qty,
+      price,
+      description,
+    ]);
     res.status(201).json({ message: 'Added successfully', result });
     return;
   } catch (error) {
@@ -44,14 +51,16 @@ export const listItem = async (req: Request, res: Response) => {
 */
 export const getItemPlayer = async (req: Request, res: Response) => {
   try {
-    await rconConnection.connect();
+    // await rconConnection.connect();
     const player = req.params.player;
     const itemId = req.params.itemId;
 
     const sql = `SELECT 
     TRIM(SUBSTRING_INDEX(item_command, ' Player', 1)) AS Action,
     'Player' AS Player,
-    TRIM(SUBSTRING_INDEX(item_command, 'Player ', -1)) AS Item 
+    IF(TRIM(SUBSTRING_INDEX(item_command, 'Player ', -1)) = item_command, '', 
+       TRIM(SUBSTRING_INDEX(item_command, 'Player ', -1))) AS Item,
+    item_qty
 FROM 
     items
 WHERE 
@@ -60,11 +69,16 @@ WHERE
     const [result] = (await connection.query(sql, itemId)) as RowDataPacket[];
     res.status(200).json(result);
 
-    const action = result[0].Action;
-    const item = result[0].Item;
+    const action = result[0].Action; // Command
+    const item = result[0].Item ? result[0].Item : ''; // Item แบบ give [Player] [item] ไม่ต้องใส่จำนวนให้ใส่ใน item_qty
+    const item_qty = result[0].item_qty ? result[0].item_qty : '';
 
-    const response = await rconConnection.send(`${action} ${player} ${item}`);
+    // console.log(action, player, item, item_qty); ทดสอบ
 
-    await rconConnection.disconnect();
+    // const response = await rconConnection.send(
+    //   `${action} ${player} ${item} ${item_qty}`
+    // );
+
+    // await rconConnection.disconnect();
   } catch (error) {}
 };
