@@ -73,6 +73,17 @@ WHERE
     const item = result[0].Item ? result[0].Item : ''; // Item แบบ give [Player] [item] ไม่ต้องใส่จำนวนให้ใส่ใน item_qty
     const item_qty = result[0].item_qty ? result[0].item_qty : '';
 
+    // เพิ่ม logic จะได้ไม่ต้องไปหนัก database
+    const exampleCommand = 'give Player diamond 1';
+
+    exampleCommand.split(' ');
+    // ['give', 'Player', 'diamond', '1']
+
+    exampleCommand[0]; // give
+    exampleCommand[1]; // Player
+    exampleCommand[2]; // diamond
+    exampleCommand[3]; // 1
+
     // console.log(action, player, item, item_qty); ทดสอบ
 
     // const response = await rconConnection.send(
