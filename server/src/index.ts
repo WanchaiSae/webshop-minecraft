@@ -11,7 +11,7 @@ import items from './routes/items';
 const app = express();
 app.use(express.json());
 
-const PORT = configOptions.PORT;
+const PORT = configOptions.PORT || 5000;
 
 // Routes
 app.use('/user', authRoutes);

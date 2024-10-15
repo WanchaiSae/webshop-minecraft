@@ -51,7 +51,7 @@ export const listItem = async (req: Request, res: Response) => {
 */
 export const getItemPlayer = async (req: Request, res: Response) => {
   try {
-    // await rconConnection.connect();
+    await rconConnection.connect();
     const player = req.params.player;
     const itemId = req.params.itemId;
 
@@ -86,10 +86,10 @@ WHERE
 
     // console.log(action, player, item, item_qty); ทดสอบ
 
-    // const response = await rconConnection.send(
-    //   `${action} ${player} ${item} ${item_qty}`
-    // );
+    const response = await rconConnection.send(
+      `${action} ${player} ${item} ${item_qty}`
+    );
 
-    // await rconConnection.disconnect();
+    await rconConnection.disconnect();
   } catch (error) {}
 };
