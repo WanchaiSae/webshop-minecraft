@@ -86,9 +86,13 @@ WHERE
 
     // console.log(action, player, item, item_qty); ทดสอบ
 
+    const sql2 = ``
+
     const response = await rconConnection.send(
       `${action} ${player} ${item} ${item_qty}`
     );
+
+    console.log(`${action} ${player} ${item} ${item_qty}`)
 
     await rconConnection.disconnect();
   } catch (error) {}
