@@ -51,49 +51,54 @@ export const listItem = async (req: Request, res: Response) => {
 */
 export const getItemPlayer = async (req: Request, res: Response) => {
   try {
-    await rconConnection.connect();
+    // await rconConnection.connect();
     const player = req.params.player;
     const itemId = req.params.itemId;
 
-    const sql = `SELECT 
-    TRIM(SUBSTRING_INDEX(item_command, ' Player', 1)) AS Action,
-    'Player' AS Player,
-    IF(TRIM(SUBSTRING_INDEX(item_command, 'Player ', -1)) = item_command, '', 
-       TRIM(SUBSTRING_INDEX(item_command, 'Player ', -1))) AS Item,
-    item_qty
-FROM 
-    items
-WHERE 
-    item_command LIKE '%Player%' AND item_id = ?;`;
+//     const sql = `SELECT 
+//     TRIM(SUBSTRING_INDEX(item_command, ' Player', 1)) AS Action,
+//     'Player' AS Player,
+//     IF(TRIM(SUBSTRING_INDEX(item_command, 'Player ', -1)) = item_command, '', 
+//        TRIM(SUBSTRING_INDEX(item_command, 'Player ', -1))) AS Item,
+//     item_qty
+// FROM 
+//     items
+// WHERE 
+//     item_command LIKE '%Player%' AND item_id = ?;`;
+
+    const sql = `SELECT * FROM items WHERE item_id = ?;`;
 
     const [result] = (await connection.query(sql, itemId)) as RowDataPacket[];
     res.status(200).json(result);
 
-    const action = result[0].Action; // Command
-    const item = result[0].Item ? result[0].Item : ''; // Item แบบ give [Player] [item] ไม่ต้องใส่จำนวนให้ใส่ใน item_qty
-    const item_qty = result[0].item_qty ? result[0].item_qty : '';
+    // const action = result[0].Action; // Command
+    // const item = result[0].Item ? result[0].Item : ''; // Item แบบ give [Player] [item] ไม่ต้องใส่จำนวนให้ใส่ใน item_qty
+    // const item_qty = result[0].item_qty ? result[0].item_qty : '';
 
     // เพิ่ม logic จะได้ไม่ต้องไปหนัก database
-    const exampleCommand = 'give Player diamond 1';
+    // const exampleCommand = result[0].item_command;
+    const exampleCommand = "give Player diamond"
 
-    exampleCommand.split(' ');
+    const word = exampleCommand.split(' ');
     // ['give', 'Player', 'diamond', '1']
 
-    exampleCommand[0]; // give
-    exampleCommand[1]; // Player
-    exampleCommand[2]; // diamond
-    exampleCommand[3]; // 1
+    // const sql2 = `UPDATE users SET balance = balance - (SELECT price FROM items WHERE item_id = ?) WHERE user_username = ?`
+    // const [results2] = (await connection.query(sql2, [itemId, player])) as RowDataPacket[]
 
-    // console.log(action, player, item, item_qty); ทดสอบ
+    // const sql_checkItemId = `SELECT * FROM items WHERE item_id = ?`;
+    // const [results_checkItemId] = (await connection.query(sql_checkItemId, [itemId])) as RowDataPacket[];
+    // res.json(200).json(results_checkItemId)
+    // console.log(results_checkItemId)
 
-    const sql2 = ``
+    // const response = await rconConnection.send(
+    //   `${action} ${player} ${item} ${item_qty}`
+    // );
 
-    const response = await rconConnection.send(
-      `${action} ${player} ${item} ${item_qty}`
-    );
+    const count = result[0].item_qty
 
-    console.log(`${action} ${player} ${item} ${item_qty}`)
+    console.log(`${word[0]} ${player} ${word[2]} ${result[0].item_qty}`);
+    
 
-    await rconConnection.disconnect();
+    // await rconConnection.disconnect();
   } catch (error) {}
 };
