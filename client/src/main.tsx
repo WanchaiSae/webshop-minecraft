@@ -5,6 +5,7 @@ import './output.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import RegisterForm from './components/auth/RegisterForm.tsx'
 import LoginForm from './components/auth/LoginForm.tsx'
+import Logout from './components/auth/Logout.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path='/register' element={<RegisterForm />} />
         <Route path='/login' element={<LoginForm />} />
+        <Route path='/logout' element={<Logout />} />
         <Route path="*" element={<div>404</div>} />
       </Routes>  
     </BrowserRouter>

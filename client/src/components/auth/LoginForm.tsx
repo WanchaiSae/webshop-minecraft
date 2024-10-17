@@ -1,6 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    if (token) {
+      navigate('/');
+    }
+  }, [navigate]);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -9,6 +20,25 @@ const LoginForm = () => {
     // ส่งข้อมูลฟอร์มที่นี่
     console.log('Email:', email);
     console.log('Password:', password);
+
+    fetch('http://localhost:5000/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      })
+    }).then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        localStorage.setItem('token', data.token);
+        navigate('/');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
   };
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

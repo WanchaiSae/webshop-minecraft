@@ -1,6 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+
+  const navigate = useNavigate()
+  const token = localStorage.getItem('token')
+
+  useEffect(() => {
+    if (token) {
+      navigate('/')
+    }
+  }, [navigate])
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
