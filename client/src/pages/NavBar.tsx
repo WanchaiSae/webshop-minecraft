@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
 
@@ -25,9 +26,10 @@ const NavBar = () => {
             Webshop Minecraft
           </div>
           <div className="space-x-4">
-            <a href="#" className="text-white hover:text-blue-300">Items</a>
-            <a href="#" className="text-white hover:text-blue-300">You : {username}</a>
-            <a href="#" className="text-white hover:text-blue-300">Balance : {balance}</a>
+            <a className="text-white hover:text-blue-300">Items</a>
+            <a className="text-white hover:text-blue-300">You : {username}</a>
+            <a className="text-white hover:text-blue-300">Balance : {balance}</a>
+            <a className="text-white hover:text-blue-300"><Link to={"/logout"}>Logout</Link></a>
           </div>
         </div>
   </nav>
