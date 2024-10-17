@@ -37,7 +37,7 @@ const ListItems = () => {
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      <div className='flex flex-wrap -m-2'>
+      <div className='flex flex-wrap-m-2'>
         {items.map((item) => (
           <Card  key={item.item_id} title={item.item_name} description={item.item_description} price={item.item_price} />
         ))}

@@ -26,10 +26,10 @@ const NavBar = () => {
             Webshop Minecraft
           </div>
           <div className="space-x-4">
-            <a className="text-white hover:text-blue-300">Items</a>
-            <a className="text-white hover:text-blue-300">You : {username}</a>
-            <a className="text-white hover:text-blue-300">Balance : {balance}</a>
-            <a className="text-white hover:text-blue-300"><Link to={"/logout"}>Logout</Link></a>
+            <span className="text-white hover:text-blue-300">Items</span>
+            <span className="text-white hover:text-blue-300">You : {username}</span>
+            <span className="text-white hover:text-blue-300">Balance : {balance}</span>
+            <span className="text-white hover:text-blue-300"><Link to={"/logout"}>Logout</Link></span>
           </div>
         </div>
   </nav>

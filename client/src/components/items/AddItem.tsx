@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import NavBar from "../../pages/NavBar";
+import { useNavigate } from "react-router-dom";
 
 const AddItem = () => {
+
+  const navigate = useNavigate()
+
   const [formData, setFormData] = useState({
     name: "",
     command: "",
@@ -17,9 +21,30 @@ const AddItem = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
+
+  fetch("http://localhost:5000/items/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Success:", data);
+      navigate("/");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
   };
 
   return (
