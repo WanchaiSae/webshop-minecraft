@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './output.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import RegisterForm from './components/auth/registerForm.tsx'
-import LoginForm from './components/auth/loginForm.tsx'
+import RegisterForm from './components/auth/RegisterForm.tsx'
+import LoginForm from './components/auth/LoginForm.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
