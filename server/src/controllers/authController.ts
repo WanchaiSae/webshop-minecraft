@@ -71,10 +71,19 @@ export const login = async (req: Request, res: Response) => {
       return;
     }
 
-    const token = jwt.sign({ user: user.user_id }, process.env.JWT_SECRET!, {
+    const payload = {
+      user_id: user.user_id,
+      username: user.user_username,
+      email: user.user_email,
+      balance: user.balance,
+    };
+
+    const token = jwt.sign({ payload }, process.env.JWT_SECRET!, {
       expiresIn: '1h',
     });
     res.setHeader('Authorization', `Bearer ${token}`);
+    
+
     res.status(200).json({ message: 'Login successfully', token });
     return;
   } catch (error) {
