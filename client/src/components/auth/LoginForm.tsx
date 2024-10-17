@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
 
@@ -81,7 +81,11 @@ const LoginForm = () => {
         >
           Login
         </button>
+        <div className="flex justify-center">
+            <p className="text-sm underline"><Link to="/register">I don't have account. Click Here</Link></p>
+          </div>
       </form>
+      
     </div>
   )
 }

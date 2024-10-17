@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
 
@@ -108,6 +108,9 @@ const RegisterForm = () => {
           >
             Register
           </button>
+          <div className="flex justify-center">
+            <p className="text-sm underline"><Link to="/login">Already Have Account. Click Here</Link></p>
+          </div>
         </form>
       </div>
     </>
