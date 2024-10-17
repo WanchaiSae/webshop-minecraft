@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
 
+  const [message, setMessage] = useState('')
+
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
@@ -37,6 +39,7 @@ const RegisterForm = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        setMessage(data.message);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -51,6 +54,7 @@ const RegisterForm = () => {
           className="bg-white p-6 rounded-lg shadow-md w-96"
         >
           <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
+          <p>{message}</p>
           <div className="mb-4">
             <label
               htmlFor="username"
