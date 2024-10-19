@@ -16,7 +16,7 @@ export const register = async (req: Request, res: Response) => {
     ])) as RowDataPacket[];
 
     if (checkResult.length > 0) {
-      res.status(400).json({ message: 'Username Already Exists.' });
+      res.status(400).json({ message: 'Username Already Exists.', status: false });
       return;
     }
 
@@ -27,7 +27,7 @@ export const register = async (req: Request, res: Response) => {
     ])) as RowDataPacket[];
 
     if (emailResult.length > 0) {
-      res.status(400).json({ message: 'Email Already Exists.' });
+      res.status(400).json({ message: 'Email Already Exists.', status: false});
       return;
     }
 
@@ -55,7 +55,7 @@ export const login = async (req: Request, res: Response) => {
     const [results] = (await connection.query(sql, [email])) as RowDataPacket[];
 
     if (results.length === 0) {
-      res.status(401).json({ message: 'Invalid email or password' });
+      res.status(401).json({ message: 'Invalid email or password' , status: false});
       return;
     }
 
@@ -67,7 +67,7 @@ export const login = async (req: Request, res: Response) => {
     );
 
     if (!isPasswordCorrect) {
-      res.status(401).json({ message: 'Invalid email or password' });
+      res.status(401).json({ message: 'Invalid email or password' , status: false});
       return;
     }
 
