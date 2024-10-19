@@ -13,6 +13,7 @@ interface CardProps {
   price: number;
   itemId: number;
   onClick: (itemId: number) => void;
+  onDelete: (itemId: number) => void;
 }
 
 const ListItems = () => {
@@ -31,6 +32,7 @@ const ListItems = () => {
 
   const payload = getPayloadFromToken(token);
   const userId = payload?.user_id;
+  const role = payload?.role;
 
 
   useEffect(() => {
@@ -46,9 +48,12 @@ const ListItems = () => {
     }).catch((error) => console.log(error))
   }, [])
 
-  const Card: React.FC<CardProps> = ({ title, description, price, itemId, onClick }) => {
+  const Card: React.FC<CardProps> = ({ title, description, price, itemId, onClick, onDelete }) => {
     return (
       <div className="bg-white shadow-lg rounded-lg p-4 m-2 w-full md:w-1/3">
+        <div className='text-right'>
+          <span onClick={() => onDelete(itemId)}><b>X</b></span>
+        </div>
         <h2 className="text-xl font-bold mb-2">{title}</h2>
         <p className="mb-4">{description}</p>
         <button onClick={() => onClick(itemId)} className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
@@ -94,11 +99,23 @@ const ListItems = () => {
     .catch((error) => console.log(error))
   }
 
+  const handleDelete = (itemId: number) => {
+    fetch(`http://localhost:5000/items/${itemId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then((response) => console.log(response.json()))
+      .then(() => setItems(items.filter((item) => item.item_id !== itemId)))
+      .catch((error) => console.log(error))
+  }
+
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='flex flex-wrap-m-2'>
         {items.map((item) => (
-          <Card key={item.item_id} title={item.item_name} description={item.item_description} price={item.item_price} onClick={handleClick} itemId={item.item_id} />
+          <Card key={item.item_id} title={item.item_name} description={item.item_description} price={item.item_price} onClick={handleClick} itemId={item.item_id} onDelete={handleDelete} />
         ))}
       </div>
     </div>

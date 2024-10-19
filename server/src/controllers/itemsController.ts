@@ -102,3 +102,10 @@ export const getItemPlayer = async (req: Request, res: Response) => {
     // await rconConnection.disconnect();
   } catch (error) {}
 };
+
+export const removeItem = async (req: Request, res: Response) => {
+  const itemId = req.params.itemId;
+  const sql = 'DELETE FROM items WHERE item_id = ?';
+  const [result] = (await connection.query(sql, [itemId])) as RowDataPacket[];
+  res.status(200).json(result);
+}

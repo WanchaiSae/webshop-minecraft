@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../../pages/NavBar";
 import { useNavigate } from "react-router-dom";
 
 const AddItem = () => {
 
   const navigate = useNavigate()
+  const token = localStorage.getItem('token')
+
+  const getPayloadFromToken = (token: string | null) => {
+    if (!token) return null;
+    const payload = token.split('.')[1];
+    const decodedPayload = JSON.parse(atob(payload));
+    return decodedPayload.payload;
+  };
+
+  const payload = getPayloadFromToken(token);
+  const role = payload?.role;
+  
+  useEffect(() => {
+    if (role !== 2) {
+      navigate('/');
+    }
+  }, [navigate])
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,6 +47,7 @@ const AddItem = () => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     },
     body: JSON.stringify(formData),
   })

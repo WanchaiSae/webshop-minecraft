@@ -17,7 +17,8 @@ const NavBar = () => {
 
   const payload = getPayloadFromToken(token);
   const userId = payload?.user_id;
-  
+  const role = payload?.role;
+
   useEffect(() => {
     fetch(`http://localhost:5000/user/${userId}`, {
       method: 'GET',
@@ -40,6 +41,7 @@ const NavBar = () => {
             <Link to={'/'}>Webshop Minecraft</Link>
           </div>
           <div className="space-x-4">
+              {role === 2 ? <span className="text-white hover:text-blue-300"><Link to={"/add"}>Add Item</Link></span>  : null}
              <span className="text-white hover:text-blue-300"><Link to={"/topup"}>Topup</Link></span> 
             <span className="text-white hover:text-blue-300">You : {username}</span>
             <span className="text-white hover:text-blue-300">Balance : {balance.toLocaleString('en-US')}</span>
