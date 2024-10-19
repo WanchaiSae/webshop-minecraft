@@ -19,6 +19,6 @@ const PORT = configOptions.PORT || 5000;
 // Routes
 app.use('/user', authRoutes);
 app.use('/items', items);
-app.use('/topup', topup);
+app.post('/topup', topup);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

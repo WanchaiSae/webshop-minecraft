@@ -6,6 +6,8 @@ import { RowDataPacket } from 'mysql2'
 export const topup = async (req: Request, res: Response) => {
   const mobileNumber = '000-000-0000' // format must be 000-000-0000
   const amount = parseFloat(req.body.amount)
+  console.log(amount);
+  
 
   const payload = promptpay(mobileNumber, {amount})
 
@@ -21,6 +23,7 @@ export const topup = async (req: Request, res: Response) => {
       console.log('generate fail')
       return res.status(400).json({message: 'generate fail'})
     }
+
     return res.status(200).json({url})
   })
 
