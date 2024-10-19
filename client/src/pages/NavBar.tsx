@@ -37,7 +37,7 @@ const NavBar = () => {
             Webshop Minecraft
           </div>
           <div className="space-x-4">
-             <span className="text-white hover:text-blue-300">Topup</span> 
+             <span className="text-white hover:text-blue-300"><Link to={"/topup"}>Topup</Link></span> 
             <span className="text-white hover:text-blue-300">You : {username}</span>
             <span className="text-white hover:text-blue-300">Balance : {balance.toLocaleString('en-US')}</span>
             <span className="text-white hover:text-blue-300"><Link to={"/logout"}>Logout</Link></span>

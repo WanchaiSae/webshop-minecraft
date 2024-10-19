@@ -4,6 +4,18 @@ import NavBar from '../../pages/NavBar'
 
 const Topup = () => {
 
+  const token = localStorage.getItem('token')
+
+  const getPayloadFromToken = (token: string | null) => {
+    if (!token) return null;
+    const payload = token.split('.')[1];
+    const decodedPayload = JSON.parse(atob(payload));
+    return decodedPayload.payload; // คืนค่า payload ทั้งหมด
+  };
+
+  const payload = getPayloadFromToken(token);
+  const userId = payload?.user_id;
+
   const [amount, setAmount] = useState(0)
   const [url, setUrl] = useState('')
 
@@ -18,6 +30,7 @@ const Topup = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        userId: userId,
         amount,
       })
     }).then(response => response.json())
