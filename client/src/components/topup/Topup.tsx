@@ -48,7 +48,9 @@ const Topup = () => {
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4 text-center">จำนวนเงิน</h2>
-        <img src={url} />
+        <div className='flex justify-center items-center'>
+          <img src={url} />
+        </div>
         <div className="mb-4">
           <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
             รองรับพร้อมเพย์เท่านั้น

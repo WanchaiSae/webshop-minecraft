@@ -34,7 +34,7 @@ const NavBar = () => {
       <nav className="bg-blue-600 p-4">
         <div className="container mx-auto flex justify-between items-center">
           <div className="text-white text-lg font-bold">
-            Webshop Minecraft
+            <Link to={'/'}>Webshop Minecraft</Link>
           </div>
           <div className="space-x-4">
              <span className="text-white hover:text-blue-300"><Link to={"/topup"}>Topup</Link></span> 
