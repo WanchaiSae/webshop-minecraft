@@ -15,6 +15,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
+    "@types/qrcode": "^1.5.5",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2"
   },
@@ -24,7 +25,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.11.3"
+    "mysql2": "^3.11.3",
+    "promptpay-qr": "^0.5.0",
+    "qrcode": "^1.5.4"
   }
 }

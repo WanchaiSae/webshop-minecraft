@@ -8,6 +8,7 @@ import cors from 'cors';
 
 import authRoutes from './routes/auth';
 import items from './routes/items';
+import { topup } from './controllers/topupController';
 
 const app = express();
 app.use(express.json());
@@ -18,5 +19,6 @@ const PORT = configOptions.PORT || 5000;
 // Routes
 app.use('/user', authRoutes);
 app.use('/items', items);
+app.use('/topup', topup);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
