@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "tsc",
+    "start": "tsc && node dist/index.js",
     "dev": "nodemon src/index.ts"
   },
   "keywords": [],

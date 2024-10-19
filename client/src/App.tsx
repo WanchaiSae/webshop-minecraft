@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import NavBar from './pages/NavBar'
 import ListItems from './components/items/ListItems'
+import NavBar from './pages/NavBar'
 function App() {
 
   const navigate = useNavigate()
