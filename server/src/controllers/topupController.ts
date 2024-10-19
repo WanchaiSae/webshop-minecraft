@@ -6,10 +6,11 @@ import connection from '../config/mysqlConfig'
 
 export const topup = async (req: Request, res: Response) => {
   const mobileNumber = '000-000-0000' // format must be 000-000-0000
+  const cardId = '0-0000-00000-00-0' // '0-0000-00000-00-0'
   const amount = parseFloat(req.body.amount)
   const userId = req.body.userId
 
-  const payload = promptpay(mobileNumber, {amount})
+  const payload = promptpay(cardId, {amount})
 
   const options = {
     color: {

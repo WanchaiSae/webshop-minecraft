@@ -20,7 +20,10 @@ const NavBar = () => {
   
   useEffect(() => {
     fetch(`http://localhost:5000/user/${userId}`, {
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     }).then((response) => response.json())
       .then((data) => {
         setUsername(data.user_username)

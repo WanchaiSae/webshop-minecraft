@@ -35,7 +35,10 @@ const ListItems = () => {
 
   useEffect(() => {
     fetch(`http://localhost:5000/user/${userId}`, {
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     }).then((response) => response.json())
       .then((data) => {
         setUsername(data.user_username)
@@ -58,7 +61,13 @@ const ListItems = () => {
   const [items, setItems] = useState<Item[]>([])
 
   useEffect(() => {
-    fetch('http://localhost:5000/items')
+    fetch('http://localhost:5000/items', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then(res => res.json())
       .then(data => setItems(data))
   }, [])  
