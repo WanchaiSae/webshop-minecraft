@@ -50,10 +50,18 @@ export const listItem = async (req: Request, res: Response) => {
  จะใช้อย่างอื่นก็ได้เช่น head Player แบบนี้ก็ได้ เพราะระบบออกแบบไว้แล้ว
 */
 export const getItemPlayer = async (req: Request, res: Response) => {
+
+  async function updatedBalance(itemId: string, player: string) {
+    const sqlUpdateBalance = `UPDATE users SET balance = balance - (SELECT item_price FROM items WHERE item_id = ?) WHERE user_username = ?`
+    const [resultsUpdateBalance] = (await connection.query(sqlUpdateBalance, [itemId, player])) as RowDataPacket[]
+
+  }
+
   try {
     // await rconConnection.connect();
     const player = req.params.player;
     const itemId = req.params.itemId;
+    
 
 //     const sql = `SELECT 
 //     TRIM(SUBSTRING_INDEX(item_command, ' Player', 1)) AS Action,
@@ -77,9 +85,9 @@ export const getItemPlayer = async (req: Request, res: Response) => {
 
     // เพิ่ม logic จะได้ไม่ต้องไปหนัก database
     // const exampleCommand = result[0].item_command;
-    const exampleCommand = "give Player diamond"
+    // const exampleCommand = "give Player diamond"
 
-    const word = exampleCommand.split(' ');
+    // const word = exampleCommand.split(' ');
     // ['give', 'Player', 'diamond', '1']
 
     // const sql2 = `UPDATE users SET balance = balance - (SELECT price FROM items WHERE item_id = ?) WHERE user_username = ?`
@@ -94,9 +102,19 @@ export const getItemPlayer = async (req: Request, res: Response) => {
     //   `${action} ${player} ${item} ${item_qty}`
     // );
 
-    const count = result[0].item_qty
+    const count = result[0].item_qty === 0 ? '' : result[0].item_qty
+    const action = result[0].item_command
+    const word = action.split(' ')
 
-    console.log(`${word[0]} ${player} ${word[2]} ${result[0].item_qty}`);
+    const word2 = word[2]
+
+    const check_underfined = word2 === undefined ? '' : word2
+    console.log(check_underfined);
+    
+    updatedBalance(itemId, player)
+
+    console.log(`${word[0]} ${player} ${check_underfined} ${count}`);
+
     
 
     // await rconConnection.disconnect();

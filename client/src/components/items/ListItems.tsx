@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface Item {
   item_id: number
@@ -17,6 +18,7 @@ interface CardProps {
 }
 
 const ListItems = () => {
+
 
   const [username, setUsername] = useState('')
   const [balance, setBalance] = useState(0)
@@ -50,10 +52,11 @@ const ListItems = () => {
 
   const Card: React.FC<CardProps> = ({ title, description, price, itemId, onClick, onDelete }) => {
     return (
-      <div className="bg-white shadow-lg rounded-lg p-4 m-2 w-full md:w-1/3">
-        <div className='text-right'>
+      <div className="bg-white shadow-lg rounded-lg p-4 w-full">
+        {role === 2 ? <div className='text-right'>
           <span onClick={() => onDelete(itemId)}><b>X</b></span>
-        </div>
+        </div> : null}
+        
         <h2 className="text-xl font-bold mb-2">{title}</h2>
         <p className="mb-4">{description}</p>
         <button onClick={() => onClick(itemId)} className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
@@ -83,10 +86,8 @@ const ListItems = () => {
     if (!itemFindById) return
 
     if (balance < itemFindById.item_price) {
-      console.log('Not enough balance')
+      return;
     }
-
-   console.log(`http://localhost:5000/items/get/${username}/${itemFindById.item_id}`)
 
    fetch(`http://localhost:5000/items/get/${username}/${itemFindById.item_id}`, {
       method: 'GET',
@@ -95,8 +96,11 @@ const ListItems = () => {
         'Authorization': `Bearer ${token}`
       }
     })
-    .then((response) => console.log(response.json()))
+    .then((response) => {
+      window.location.href = '/'
+    })
     .catch((error) => console.log(error))
+
   }
 
   const handleDelete = (itemId: number) => {
@@ -113,9 +117,11 @@ const ListItems = () => {
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      <div className='flex flex-wrap-m-2'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
         {items.map((item) => (
-          <Card key={item.item_id} title={item.item_name} description={item.item_description} price={item.item_price} onClick={handleClick} itemId={item.item_id} onDelete={handleDelete} />
+          <div key={item.item_id} className='w-full'>
+          <Card  title={item.item_name} description={item.item_description} price={item.item_price} onClick={handleClick} itemId={item.item_id} onDelete={handleDelete} />
+          </div>
         ))}
       </div>
     </div>
