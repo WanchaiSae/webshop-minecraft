@@ -73,13 +73,10 @@ export const login = async (req: Request, res: Response) => {
 
     const payload = {
       user_id: user.user_id,
-      username: user.user_username,
-      email: user.user_email,
-      balance: user.balance,
     };
 
     const token = jwt.sign({ payload }, process.env.JWT_SECRET!, {
-      expiresIn: '1h',
+      expiresIn: '24h',
     });
     res.setHeader('Authorization', `Bearer ${token}`);
     
@@ -92,3 +89,24 @@ export const login = async (req: Request, res: Response) => {
     return;
   }
 };
+
+export const getUserId = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+
+    const sql = 'SELECT user_username, user_email, balance FROM users WHERE user_id = ?';
+    const [results] = (await connection.query(sql, [userId])) as RowDataPacket[];
+
+    if (results.length === 0) { 
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    res.status(200).json(results[0]);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+    return;
+  }
+}

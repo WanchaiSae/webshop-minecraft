@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 
 const NavBar = () => {
 
+  const [username, setUsername] = useState('')
+  const [balance, setBalance] = useState(0)
+
   const token = localStorage.getItem('token')
 
   const getPayloadFromToken = (token: string | null) => {
@@ -13,10 +16,18 @@ const NavBar = () => {
   };
 
   const payload = getPayloadFromToken(token);
-  const username = payload?.username;
-  const balance = payload?.balance;
+  const userId = payload?.user_id;
   
-  
+  useEffect(() => {
+    fetch(`http://localhost:5000/user/${userId}`, {
+      method: 'GET'
+    }).then((response) => response.json())
+      .then((data) => {
+        setUsername(data.user_username)
+        setBalance(data.balance)
+    }).catch((error) => console.log(error))
+  }, [])
+
 
   return (
     <>
@@ -26,9 +37,9 @@ const NavBar = () => {
             Webshop Minecraft
           </div>
           <div className="space-x-4">
-            <span className="text-white hover:text-blue-300">Items</span>
+            {/* <span className="text-white hover:text-blue-300">Items</span> */}
             <span className="text-white hover:text-blue-300">You : {username}</span>
-            <span className="text-white hover:text-blue-300">Balance : {balance}</span>
+            <span className="text-white hover:text-blue-300">Balance : {balance.toLocaleString('en-US')}</span>
             <span className="text-white hover:text-blue-300"><Link to={"/logout"}>Logout</Link></span>
           </div>
         </div>

@@ -17,6 +17,9 @@ interface CardProps {
 
 const ListItems = () => {
 
+  const [username, setUsername] = useState('')
+  const [balance, setBalance] = useState(0)
+
   const token = localStorage.getItem('token')
 
   const getPayloadFromToken = (token: string | null) => {
@@ -27,8 +30,18 @@ const ListItems = () => {
   };
 
   const payload = getPayloadFromToken(token);
-  const username = payload?.username;
-  const balance = payload?.balance;
+  const userId = payload?.user_id;
+
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/user/${userId}`, {
+      method: 'GET'
+    }).then((response) => response.json())
+      .then((data) => {
+        setUsername(data.user_username)
+        setBalance(data.balance)
+    }).catch((error) => console.log(error))
+  }, [])
 
   const Card: React.FC<CardProps> = ({ title, description, price, itemId, onClick }) => {
     return (
@@ -48,7 +61,7 @@ const ListItems = () => {
     fetch('http://localhost:5000/items')
       .then(res => res.json())
       .then(data => setItems(data))
-  }, [])
+  }, [])  
 
   const handleClick = (itemId: number) => {
     const itemFindById = items.find(item => item.item_id === itemId)
@@ -59,9 +72,9 @@ const ListItems = () => {
       console.log('Not enough balance')
     }
 
-    console.log(`http://localhost:5000/items/get/${username}/${itemFindById.item_id}`)
+   console.log(`http://localhost:5000/items/get/${username}/${itemFindById.item_id}`)
 
-    fetch(`http://localhost:5000/items/get/${username}/${itemFindById.item_id}`, {
+   fetch(`http://localhost:5000/items/get/${username}/${itemFindById.item_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
