@@ -27,7 +27,6 @@ const AddItem = () => {
   const [formData, setFormData] = useState({
     name: "",
     command: "",
-    qty: "",
     price: "",
     description: "",
   });
@@ -111,25 +110,6 @@ const AddItem = () => {
               required
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Example: give Player Diamond *Must be Player*"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="qty"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Quantity
-            </label>
-            <input
-              type="number"
-              id="qty"
-              name="qty"
-              value={formData.qty}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter quantity"
             />
           </div>
 
