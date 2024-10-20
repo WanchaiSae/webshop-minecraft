@@ -23,6 +23,9 @@
 - [ReactJS](https://react.dev/)
 - [MySQL2](https://www.npmjs.com/package/mysql2)
 
+### การนำไฟล์ sql เข้าไป
+- นำไฟล์ webshop_minecraft.sql ใส่เข้าใน import แล้วกด OK
+
 ### การใช้งานโปรเจกต์
 
 คำสั่งนี้สามารถใช้ได้ทั้งโฟล์เดอร์ Server และ Client
