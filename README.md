@@ -10,11 +10,18 @@
 สิ่งที่ต้องมีคือ NodeJS ในเครื่อง MySQL ในเครื่อง เซิร์ฟเกม Minecraft และความรู้ในการเขียนโค้ดสักนิดนึงในการใช้งานโปรเจกต์นี้.
 หวังว่าจะใช้งานได้ด้วยดี และสามารถนำไปพัฒนาต่อยอดจนเกิดประโยชน์อันสูงสุดได้
 
-### สิ่งที่ต้องดาวน์โหลด
+### เทคโนโลยีและเครื่องมือที่ใช้พัฒนาหลัก ๆ
 
 ตามลิ้งนี้เลย 
 - [NodeJS](https://nodejs.org/en)
 - [Laragon](https://laragon.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [ExpressJS](https://www.npmjs.com/package/express)
+- [@scriptserver/core](https://www.npmjs.com/package/@scriptserver/core)
+- [promptpay-qr](https://www.npmjs.com/package/promptpay-qr)
+- [tailwindcss](https://tailwindcss.com/)
+- [ReactJS](https://react.dev/)
+- [MySQL2](https://www.npmjs.com/package/mysql2)
 
 ### การใช้งานโปรเจกต์
 
