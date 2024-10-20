@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 interface Item {
   item_id: number
@@ -97,6 +96,7 @@ const ListItems = () => {
       }
     })
     .then((response) => {
+      console.log(response);
       window.location.href = '/'
     })
     .catch((error) => console.log(error))
